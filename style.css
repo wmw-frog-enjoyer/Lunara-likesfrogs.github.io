@@ -25,6 +25,12 @@
     width: 32px;
 }
 
+.center-nav {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 .members-button {
     color: white;
     text-decoration: none;
