@@ -90,3 +90,29 @@ body {
     line-height: 1.7;
     margin-bottom: 10px;
 }
+
+.apply-button {
+    display: inline-block;
+
+    margin-top: 40px;
+    margin-bottom: 50px;
+    padding: 20px 50px;
+
+    background-color: #397b29;
+
+    color: white;
+    text-decoration: none;
+
+    border-radius: 10px;
+
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+
+    transition: 0.2s ease;
+}
+
+.apply-button:hover {
+    background-color: #2f6521;
+    transform: scale(1.05);
+}

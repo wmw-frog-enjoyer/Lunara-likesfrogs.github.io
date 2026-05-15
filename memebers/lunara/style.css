@@ -30,10 +30,22 @@ body {
         #141414 0%,
         #111111 25%,
         #000000 50%,
-        #111111 85%,
+        #111111 75%,
         #141414 100%
     );
 
     color: white;
     text-align: center;
+}
+
+.lunara-pfp {
+    margin-top: 70px;
+    width: 256px;
+}
+
+.inter-main {
+    font-family: "Inter", sans-serif;
+    margin-top: 10px;
+    font-weight: 200;
+    font-size: 70px;
 }
