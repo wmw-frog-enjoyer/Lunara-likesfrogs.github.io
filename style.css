@@ -57,3 +57,36 @@ body {
     font-weight: 200;
     font-size: 70px;
 }
+
+.pillars {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 40px;
+    padding: 0 20px;
+}
+
+.box {
+    width: 400px;
+
+    padding: 25px;
+
+    border-radius: 35px;
+
+    background-color: rgba(55, 55, 55, 0.2);
+
+    font-family: "Inter", sans-serif;
+}
+
+.title-info {
+    font-weight: 450;
+    font-size: 35px;
+    margin-bottom: 12px;
+}
+
+.text-info {
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.7;
+    margin-bottom: 10px;
+}
