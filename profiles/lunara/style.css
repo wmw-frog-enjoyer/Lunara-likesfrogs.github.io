@@ -1,0 +1,25 @@
+.topbar {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+}
+
+.home-button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    text-decoration: none;
+
+    background-color: #1a1a1a;
+    color: white;
+
+    padding: 10px 16px;
+    border-radius: 12px;
+
+    font-family: Arial, sans-serif;
+}
+
+.home-logo {
+    width: 32px;
+}
