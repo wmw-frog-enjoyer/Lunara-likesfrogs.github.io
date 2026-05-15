@@ -1,6 +1,11 @@
 body {
     margin-top: 100px;
-    background-color: black;
+    background: linear-gradient(
+        to right,
+        #292929 0%,
+        #000000 50%,
+        #292929 100%
+    );
     color: white;
     text-align: center;
 }
