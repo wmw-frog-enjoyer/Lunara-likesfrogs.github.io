@@ -1,29 +1,19 @@
-const params = new URLSearchParams(window.location.search);
-const id = params.get("id");
+fetch("/articles/articles.json")
+  .then((res) => res.json())
+  .then((articles) => {
+    const container = document.getElementById("articles");
 
-fetch(`/articles/lunara/${id}.md`)
-  .then((res) => res.text())
-  .then((md) => {
-    // Split frontmatter safely
-    const parts = md.split("---");
+    articles.forEach((a) => {
+      const card = document.createElement("a");
 
-    const rawMeta = parts[1]; // metadata
-    const content = parts.slice(2).join("---"); // article body
+      card.href = `/articles/article.html?id=${a.id}`;
+      card.className = "article-card";
 
-    // turn metadata into usable object
-    const meta = {};
-    rawMeta.split("\n").forEach((line) => {
-      const [key, ...rest] = line.split(":");
-      if (!key || !rest.length) return;
+      card.innerHTML = `
+        <h2>${a.title}</h2>
+        <p>${a.author} • ${a.date}</p>
+      `;
 
-      meta[key.trim()] = rest.join(":").trim();
+      container.appendChild(card);
     });
-
-    // render markdown content
-    document.getElementById("article").innerHTML = `
-        <h1>${meta.title || ""}</h1>
-        <p><strong>${meta.author || ""}</strong> — ${meta.date || ""}</p>
-        <hr>
-        ${marked.parse(content)}
-    `;
   });
