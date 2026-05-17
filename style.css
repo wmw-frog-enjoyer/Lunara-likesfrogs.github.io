@@ -118,33 +118,6 @@ body {
     font-weight: 350;
 }
 
-.button-grid {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    gap: 50px;
-    margin-bottom: 100px;
-}
-
-.button-rsc {
-    text-decoration: none;
-    color: white;
-    padding: 5px 20px;
-    margin-left: 700px;
-    margin-right: 700px;
-    border-radius: 5px;
-    background-color: rgba(120, 120, 120, 1);
-    font-family: "Inter", sans-serif;
-    font-weight: 300;
-    font-size: 20px;
-    transition: 0.2s ease;
-}
-
-.button-rsc:hover {
-    transform: scale(1.05);
-    background-color: rgba(150, 150, 150, 1);
-}
-
 .button-apply {
     text-decoration: none;
     color: white;
