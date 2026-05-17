@@ -65,3 +65,38 @@ body {
 }
 
 /* this is the end of copy paste */
+
+.title {
+    font-family: "Inter", sans-serif;
+    margin-top: 70px;
+    font-weight: 200;
+    font-size: 110px;
+}
+
+.subtitle {
+    font-family: "Inter", sans-serif;
+    margin-top: -40px;
+    font-weight: 300;
+    font-size: 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    justify-content: center;
+    gap: 50px;
+    margin-top: 80px;
+    margin-bottom: 120px;
+}
+
+.card {
+    width: 400px;
+    background-color: rgba(55, 55, 55, 0.25);
+    border-radius: 50px;
+}
+
+.pfp {
+    border-radius: 100%;
+    margin-top: 50px;
+    width: 256px;
+}

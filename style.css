@@ -73,16 +73,16 @@ body {
 
 .subtitle {
     font-family: "Inter", sans-serif;
-    margin-top: -40px;
+    margin-top: -60px;
     font-weight: 300;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 .inter-main {
     font-family: "Inter", sans-serif;
     margin-top: 0px;
     font-weight: 200;
-    font-size: 70px;
+    font-size: 110px;
 }
 
 .card-grid {
@@ -113,7 +113,7 @@ body {
     margin-left: 25px;
     margin-right: 25px;
     line-height: 1.7;
-    font-size: 18px;
+    font-size: 20px;
     font-family: "Inter", sans-serif;
     font-weight: 350;
 }
@@ -130,12 +130,13 @@ body {
     text-decoration: none;
     color: white;
     padding: 5px 20px;
-    margin-left: 720px;
-    margin-right: 720px;
+    margin-left: 700px;
+    margin-right: 700px;
     border-radius: 5px;
     background-color: rgba(120, 120, 120, 1);
     font-family: "Inter", sans-serif;
     font-weight: 300;
+    font-size: 20px;
     transition: 0.2s ease;
 }
 
@@ -148,12 +149,14 @@ body {
     text-decoration: none;
     color: white;
     padding: 5px 20px;
-    margin-left: 700px;
-    margin-right: 700px;
+    margin-left: 680px;
+    margin-right: 680px;
     border-radius: 5px;
     background-color: rgb(37, 105, 63);
     font-family: "Inter", sans-serif;
     font-weight: 300;
+    font-size: 20px;
+    transition: 0.2s ease;
 }
 
 .button-apply:hover {
