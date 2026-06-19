@@ -102,11 +102,7 @@
                     // Two spaces at the end of a line is the markdown standard for a line break.
                     // We do it this way instead of marked's built-in "breaks" option because
                     // that option interferes with heading detection (# title stops working).
-                    const processed = markdown.replace(
-                        /([^\n])\n([^\n])/g,
-                        "$1  \n$2",
-                    );
-                    postBody.innerHTML = marked.parse(processed);
+                    postBody.innerHTML = marked.parse(markdown);
                 } catch (error) {
                     postBody.innerHTML =
                         '<p class="status-text">could not load article.</p>';

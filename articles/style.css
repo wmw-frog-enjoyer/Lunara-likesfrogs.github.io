@@ -105,15 +105,15 @@
     display: inline-block;
     font-family: "Inter", sans-serif;
     font-weight: 300;
-    font-size: 13px;
-    color: rgba(255, 255, 255, 0.35);
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.8);
     text-decoration: none;
     margin-bottom: 32px;
     transition: color 0.15s ease;
 }
 
 .back-link:hover {
-    color: rgba(255, 255, 255, 0.75);
+    color: rgba(255, 255, 255, 1);
 }
 
 .post-preface {
@@ -125,9 +125,9 @@
 
 .preface-number {
     font-family: "Inter", sans-serif;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 300;
-    color: rgba(255, 255, 255, 0.22);
+    color: rgba(255, 255, 255, 0.5);
     letter-spacing: 0.04em;
 }
 
@@ -140,29 +140,29 @@
 
 .preface-author {
     font-family: "Inter", sans-serif;
-    font-size: 13px;
+    font-size: 18px;
     font-weight: 300;
-    color: rgba(255, 255, 255, 0.45);
+    color: rgba(255, 255, 255, 0.5);
 }
 
 .preface-date {
     font-family: "Inter", sans-serif;
-    font-size: 12px;
+    font-size: 15px;
     font-weight: 300;
-    color: rgba(255, 255, 255, 0.25);
+    color: rgba(255, 255, 255, 0.5);
 }
 
 .preface-divider {
     border: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.09);
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
     margin: 0 0 28px 0;
 }
 
 .post-body h1 {
     font-family: "Inter", sans-serif;
     font-weight: 300;
-    font-size: 26px;
-    margin: 0 0 18px 0;
+    font-size: 50px;
+    margin: 0 0 20px 0;
     letter-spacing: -0.5px;
     color: white;
 }
@@ -170,7 +170,7 @@
 .post-body h2 {
     font-family: "Inter", sans-serif;
     font-weight: 300;
-    font-size: 19px;
+    font-size: 40px;
     margin: 34px 0 10px 0;
     color: rgba(255, 255, 255, 0.9);
 }
@@ -178,16 +178,16 @@
 .post-body h3 {
     font-family: "Inter", sans-serif;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 30px;
     margin: 26px 0 8px 0;
     color: rgba(255, 255, 255, 0.85);
 }
 
 .post-body p {
     font-family: "Inter", sans-serif;
-    font-weight: 300;
-    font-size: 15px;
-    line-height: 1.8;
+    font-weight: 350;
+    font-size: 20px;
+    line-height: 1.5;
     color: rgba(255, 255, 255, 0.76);
     margin: 0 0 15px 0;
 }
