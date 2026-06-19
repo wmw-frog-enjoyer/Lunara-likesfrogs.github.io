@@ -1,0 +1,236 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Ansilian</title>
+        <link
+            rel="icon"
+            type="image/png"
+            href="https://wmw-frog-enjoyer.github.io/assets/ansilian.png"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Naskh+Arabic:wght@400..700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="../style.css" />
+
+        <!--
+            marked.js — the library that converts markdown (.md) into HTML.
+            You don't need to install anything, this loads it from the internet.
+        -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+
+        <style>
+            .page-content {
+                max-width: 680px;
+                margin: 50px auto;
+                padding: 0 24px;
+                text-align: left;
+            }
+
+            /* the "← back to texts" link at the top */
+            .back-link {
+                display: inline-block;
+                font-family: "Inter", sans-serif;
+                font-weight: 300;
+                font-size: 14px;
+                color: rgba(255, 255, 255, 0.35);
+                text-decoration: none;
+                margin-bottom: 44px;
+                transition: color 0.2s ease;
+            }
+
+            .back-link:hover {
+                color: rgba(255, 255, 255, 0.75);
+            }
+
+            /*
+                These styles control how the converted markdown looks.
+                Every heading, paragraph, list etc. that comes from your .md file
+                will be styled by the rules below.
+            */
+            .post-body h1 {
+                font-family: "Inter", sans-serif;
+                font-weight: 300;
+                font-size: 30px;
+                margin: 0 0 10px 0;
+                letter-spacing: -0.5px;
+            }
+
+            .post-body h2 {
+                font-family: "Inter", sans-serif;
+                font-weight: 300;
+                font-size: 22px;
+                margin: 40px 0 10px 0;
+                color: rgba(255, 255, 255, 0.9);
+            }
+
+            .post-body h3 {
+                font-family: "Inter", sans-serif;
+                font-weight: 400;
+                font-size: 17px;
+                margin: 30px 0 8px 0;
+                color: rgba(255, 255, 255, 0.8);
+            }
+
+            .post-body p {
+                font-family: "Inter", sans-serif;
+                font-weight: 300;
+                font-size: 16px;
+                line-height: 1.75;
+                color: rgba(255, 255, 255, 0.8);
+                margin: 0 0 18px 0;
+            }
+
+            .post-body a {
+                color: rgba(150, 200, 255, 0.85);
+                text-decoration: underline;
+            }
+
+            .post-body ul,
+            .post-body ol {
+                font-family: "Inter", sans-serif;
+                font-weight: 300;
+                font-size: 16px;
+                line-height: 1.75;
+                color: rgba(255, 255, 255, 0.8);
+                padding-left: 24px;
+            }
+
+            .post-body li {
+                margin-bottom: 6px;
+            }
+
+            /* for quoting things: > like this in markdown */
+            .post-body blockquote {
+                border-left: 2px solid rgba(255, 255, 255, 0.2);
+                margin: 24px 0;
+                padding: 2px 0 2px 20px;
+                color: rgba(255, 255, 255, 0.45);
+                font-style: italic;
+            }
+
+            /* inline code: `like this` */
+            .post-body code {
+                font-size: 14px;
+                background: rgba(255, 255, 255, 0.07);
+                padding: 2px 7px;
+                border-radius: 4px;
+            }
+
+            /* code blocks: triple backtick ``` */
+            .post-body pre {
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.07);
+                border-radius: 8px;
+                padding: 16px 20px;
+                overflow-x: auto;
+            }
+
+            .post-body pre code {
+                background: none;
+                padding: 0;
+            }
+
+            /* horizontal rule: --- in markdown */
+            .post-body hr {
+                border: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                margin: 36px 0;
+            }
+
+            /* images inside posts */
+            .post-body img {
+                max-width: 100%;
+                border-radius: 8px;
+            }
+
+            .status-text {
+                font-family: "Inter", sans-serif;
+                font-weight: 300;
+                font-size: 15px;
+                color: rgba(255, 255, 255, 0.3);
+            }
+        </style>
+    </head>
+    <body>
+        <!-- ===================== COPY-PASTE HEADER ===================== -->
+        <header class="topbar">
+            <a class="home-button" href="https://wmw-frog-enjoyer.github.io/">
+                <img
+                    class="home-logo"
+                    src="https://wmw-frog-enjoyer.github.io/assets/ansilian.png"
+                    alt="home-Logo"
+                />
+                <span>Ansilian</span>
+            </a>
+            <div class="center-nav">
+                <a
+                    class="archivers"
+                    href="https://wmw-frog-enjoyer.github.io/archivers"
+                >
+                    archivers
+                </a>
+            </div>
+        </header>
+        <!-- ==================== END COPY-PASTE HEADER ================== -->
+
+        <div class="page-content">
+            <a class="back-link" href="index.html">← back to texts</a>
+
+            <!-- the rendered markdown goes in here -->
+            <div id="post-body" class="post-body">
+                <p class="status-text">loading...</p>
+            </div>
+        </div>
+
+        <script>
+            async function loadPost() {
+                const postBody = document.getElementById("post-body");
+
+                // Read the URL to find out which post to load.
+                // When someone visits reader.html?post=hello-world,
+                // this line reads the "hello-world" part.
+                const params = new URLSearchParams(window.location.search);
+                const postId = params.get("post");
+
+                if (!postId) {
+                    postBody.innerHTML =
+                        '<p class="status-text">no post specified.</p>';
+                    return;
+                }
+
+                try {
+                    // Fetch the .md file from the posts folder
+                    const response = await fetch(`posts/${postId}.md`);
+
+                    if (!response.ok) {
+                        postBody.innerHTML =
+                            '<p class="status-text">post not found.</p>';
+                        return;
+                    }
+
+                    // Get the raw markdown text
+                    const markdown = await response.text();
+
+                    // marked.parse() converts the markdown into HTML and
+                    // we inject it into the page
+                    postBody.innerHTML = marked.parse(markdown);
+
+                    // Update the browser tab title to match the post's first heading
+                    const firstHeading = postBody.querySelector("h1");
+                    if (firstHeading) {
+                        document.title = `${firstHeading.textContent} — Ansilian`;
+                    }
+                } catch (error) {
+                    postBody.innerHTML =
+                        '<p class="status-text">could not load post.</p>';
+                    console.error(error);
+                }
+            }
+
+            loadPost();
+        </script>
+    </body>
+</html>

@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+    <head>
+        <title>texts — Ansilian</title>
+        <link
+            rel="icon"
+            type="image/png"
+            href="https://wmw-frog-enjoyer.github.io/assets/ansilian.png"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Naskh+Arabic:wght@400..700&display=swap"
+            rel="stylesheet"
+        />
+        <!-- your shared styles (../ goes up one folder to where style.css lives) -->
+        <link rel="stylesheet" href="../style.css" />
+
+        <style>
+            /* layout for the whole page content area */
+            .page-content {
+                max-width: 680px;
+                margin: 60px auto;
+                padding: 0 24px;
+                text-align: left;
+            }
+
+            .page-title {
+                font-family: "Inter", sans-serif;
+                font-weight: 200;
+                font-size: 32px;
+                margin: 0 0 40px 0;
+                color: white;
+                letter-spacing: -0.5px;
+            }
+
+            /* each post is a clickable card */
+            .post-card {
+                display: block;           /* makes the whole card clickable */
+                text-decoration: none;
+                color: white;
+                padding: 20px 22px;
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 10px;
+                margin-bottom: 12px;
+                transition: background 0.2s ease, border-color 0.2s ease;
+                background: rgba(255, 255, 255, 0.02);
+            }
+
+            .post-card:hover {
+                background: rgba(255, 255, 255, 0.06);
+                border-color: rgba(255, 255, 255, 0.18);
+            }
+
+            .post-card-title {
+                font-family: "Inter", sans-serif;
+                font-weight: 400;
+                font-size: 18px;
+                margin: 0 0 6px 0;
+            }
+
+            .post-card-date {
+                font-family: "Inter", sans-serif;
+                font-weight: 300;
+                font-size: 13px;
+                color: rgba(255, 255, 255, 0.35);
+                margin-bottom: 4px;
+            }
+
+            .post-card-desc {
+                font-family: "Inter", sans-serif;
+                font-weight: 300;
+                font-size: 14px;
+                color: rgba(255, 255, 255, 0.55);
+            }
+
+            /* shown while posts are loading or on error */
+            .status-text {
+                font-family: "Inter", sans-serif;
+                font-weight: 300;
+                font-size: 15px;
+                color: rgba(255, 255, 255, 0.3);
+            }
+        </style>
+    </head>
+    <body>
+        <!-- ===================== COPY-PASTE HEADER ===================== -->
+        <header class="topbar">
+            <a class="home-button" href="https://wmw-frog-enjoyer.github.io/">
+                <img
+                    class="home-logo"
+                    src="https://wmw-frog-enjoyer.github.io/assets/ansilian.png"
+                    alt="home-Logo"
+                />
+                <span>Ansilian</span>
+            </a>
+            <div class="center-nav">
+                <a
+                    class="archivers"
+                    href="https://wmw-frog-enjoyer.github.io/archivers"
+                >
+                    archivers
+                </a>
+            </div>
+        </header>
+        <!-- ==================== END COPY-PASTE HEADER ================== -->
+
+        <div class="page-content">
+            <h1 class="page-title">texts</h1>
+
+            <!-- JavaScript will fill this div with post cards -->
+            <div id="posts-container">
+                <p class="status-text">loading...</p>
+            </div>
+        </div>
+
+        <script>
+            async function loadPosts() {
+                const container = document.getElementById("posts-container");
+
+                try {
+                    // Step 1: fetch the list of posts from posts.json
+                    const response = await fetch("posts/posts.json");
+                    const posts = await response.json();
+
+                    // Step 2: clear the "loading..." text
+                    container.innerHTML = "";
+
+                    // Step 3: handle the case where there are no posts yet
+                    if (posts.length === 0) {
+                        container.innerHTML =
+                            '<p class="status-text">nothing here yet.</p>';
+                        return;
+                    }
+
+                    // Step 4: sort by date, newest post first
+                    posts.sort(
+                        (a, b) => new Date(b.date) - new Date(a.date)
+                    );
+
+                    // Step 5: for each post, create a card and add it to the page
+                    posts.forEach((post) => {
+                        const card = document.createElement("a");
+                        card.className = "post-card";
+
+                        // the link goes to reader.html and passes the post id in the URL
+                        // e.g. reader.html?post=hello-world
+                        card.href = `reader.html?post=${post.id}`;
+
+                        card.innerHTML = `
+                            <div class="post-card-date">${post.date}</div>
+                            <div class="post-card-title">${post.title}</div>
+                            ${post.description ? `<div class="post-card-desc">${post.description}</div>` : ""}
+                        `;
+
+                        container.appendChild(card);
+                    });
+                } catch (error) {
+                    container.innerHTML =
+                        '<p class="status-text">could not load posts.</p>';
+                    console.error(error);
+                }
+            }
+
+            loadPosts();
+        </script>
+    </body>
+</html>
