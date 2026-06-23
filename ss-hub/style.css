@@ -1,0 +1,21 @@
+.logo {
+    margin-top: 0px;
+    margin-bottom: -50px;
+    width: 400px;
+}
+
+.ss-hub {
+    font-family: "Inter", sans-serif;
+    margin-top: -60px;
+    font-weight: 300;
+    font-size: 25px;
+}
+
+.ss-hub span {
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+}
+
+.ss-hub:hover span {
+    opacity: 1;
+}
