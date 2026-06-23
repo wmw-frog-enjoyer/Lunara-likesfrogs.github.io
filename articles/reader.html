@@ -30,7 +30,6 @@
                 />
                 <span>Ansilian</span>
             </a>
-
             <div class="center-nav">
                 <a
                     class="archivers"
@@ -60,6 +59,9 @@
             </div>
             <hr class="preface-divider" />
 
+            <!-- tags shown between the preface and the article body -->
+            <div id="preface-tags" class="preface-tags"></div>
+
             <div id="post-body" class="post-body">
                 <p class="status-text">loading...</p>
             </div>
@@ -69,7 +71,6 @@
             async function loadPost() {
                 const postBody = document.getElementById("post-body");
 
-                // read ?post=001 from the URL
                 const params = new URLSearchParams(window.location.search);
                 const postId = params.get("post");
 
@@ -80,7 +81,6 @@
                 }
 
                 try {
-                    // fetch posts.json to get the metadata (author, date, title)
                     const metaResponse = await fetch("posts/posts.json");
                     const allPosts = await metaResponse.json();
                     const meta = allPosts.find((p) => p.id === postId);
@@ -93,9 +93,19 @@
                         document.getElementById("preface-date").textContent =
                             meta.date;
                         document.title = `${meta.title} — Ansilian`;
+
+                        // render tags if any
+                        if (meta.tags && meta.tags.length > 0) {
+                            document.getElementById("preface-tags").innerHTML =
+                                meta.tags
+                                    .map(
+                                        (t) =>
+                                            `<span class="preface-tag">${t}</span>`,
+                                    )
+                                    .join("");
+                        }
                     }
 
-                    // fetch and render the .md file
                     const mdResponse = await fetch(`posts/${postId}.md`);
 
                     if (!mdResponse.ok) {
@@ -105,11 +115,11 @@
                     }
 
                     const markdown = await mdResponse.text();
-                    // This adds two trailing spaces before every single newline.
-                    // Two spaces at the end of a line is the markdown standard for a line break.
-                    // We do it this way instead of marked's built-in "breaks" option because
-                    // that option interferes with heading detection (# title stops working).
-                    postBody.innerHTML = marked.parse(markdown);
+                    const processed = markdown.replace(
+                        /([^\n])\n([^\n])/g,
+                        "$1  \n$2",
+                    );
+                    postBody.innerHTML = marked.parse(processed);
                 } catch (error) {
                     postBody.innerHTML =
                         '<p class="status-text">could not load article.</p>';

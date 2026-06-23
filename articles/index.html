@@ -34,6 +34,12 @@
                 >
                     archivers
                 </a>
+                <a
+                    class="archivers"
+                    href="https://wmw-frog-enjoyer.github.io/articles"
+                >
+                    articles
+                </a>
             </div>
         </header>
         <!-- ==================== END COPY-PASTE HEADER ================== -->
@@ -44,7 +50,7 @@
                 type="text"
                 id="search-input"
                 class="search-input"
-                placeholder="search by title or author..."
+                placeholder="search by title, author or tag..."
                 autocomplete="off"
             />
             <div id="posts-container">
@@ -55,17 +61,31 @@
         <script>
             let allPosts = [];
 
+            function renderTags(tags) {
+                if (!tags || tags.length === 0) return "";
+                return `<div class="card-tags">
+                    ${tags.map((t) => `<span class="card-tag">${t}</span>`).join("")}
+                </div>`;
+            }
+
             function renderCards(filter) {
                 const container = document.getElementById("posts-container");
                 const query = filter.toLowerCase().trim();
 
-                // filter posts by title or author
                 const results = query
-                    ? allPosts.filter(
-                          (p) =>
-                              p.title.toLowerCase().includes(query) ||
-                              p.author.toLowerCase().includes(query),
-                      )
+                    ? allPosts.filter((p) => {
+                          // search matches title, author, or any tag
+                          const inTitle = p.title.toLowerCase().includes(query);
+                          const inAuthor = p.author
+                              .toLowerCase()
+                              .includes(query);
+                          const inTags =
+                              p.tags &&
+                              p.tags.some((t) =>
+                                  t.toLowerCase().includes(query),
+                              );
+                          return inTitle || inAuthor || inTags;
+                      })
                     : allPosts;
 
                 container.innerHTML = "";
@@ -89,7 +109,10 @@
                         </div>
                         <div class="card-title">${post.title}</div>
                         ${post.description ? `<div class="card-desc">${post.description}</div>` : ""}
-                        <div class="card-author">${post.author}</div>
+                        <div class="card-bottom-row">
+                            <span class="card-author">${post.author}</span>
+                            ${renderTags(post.tags)}
+                        </div>
                     `;
 
                     container.appendChild(card);
@@ -109,13 +132,10 @@
                         return;
                     }
 
-                    // sort by id number, highest (newest) first
                     allPosts.sort((a, b) => Number(b.id) - Number(a.id));
 
-                    // render all posts on load
                     renderCards("");
 
-                    // re-render filtered results as the user types
                     document
                         .getElementById("search-input")
                         .addEventListener("input", (e) => {
