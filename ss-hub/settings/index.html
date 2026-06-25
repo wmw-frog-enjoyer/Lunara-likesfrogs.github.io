@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+    <head>
+        <title>settings — Ansilian</title>
+        <link
+            rel="icon"
+            type="image/png"
+            href="https://wmw-frog-enjoyer.github.io/assets/ansilian.png"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Naskh+Arabic:wght@400..700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="../style.css" />
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <!-- ===================== COPY-PASTE HEADER ===================== -->
+        <header class="topbar">
+            <a class="home-button" href="https://wmw-frog-enjoyer.github.io/">
+                <img
+                    class="home-logo"
+                    src="https://wmw-frog-enjoyer.github.io/assets/ansilian.png"
+                    alt="home-Logo"
+                />
+                <span>Ansilian</span>
+            </a>
+            <div class="center-nav">
+                <a
+                    class="archivers"
+                    href="https://wmw-frog-enjoyer.github.io/archivers"
+                    >archivers</a
+                >
+                <a
+                    class="archivers"
+                    href="https://wmw-frog-enjoyer.github.io/articles"
+                    >articles</a
+                >
+            </div>
+        </header>
+        <!-- ==================== END COPY-PASTE HEADER ================== -->
+
+        <div class="page-content">
+            <h1 class="page-title">settings</h1>
+            <input
+                type="text"
+                id="search-input"
+                class="search-input"
+                placeholder="search by author, format or tag..."
+                autocomplete="off"
+            />
+            <div id="configs-container">
+                <p class="status-text">loading...</p>
+            </div>
+        </div>
+
+        <script>
+            let allConfigs = [];
+
+            function renderTags(tags) {
+                if (!tags || tags.length === 0) return "";
+                return tags
+                    .map((t) => `<span class="card-tag">${t}</span>`)
+                    .join("");
+            }
+
+            function renderCards(filter) {
+                const container = document.getElementById("configs-container");
+                const query = filter.toLowerCase().trim();
+
+                const results = query
+                    ? allConfigs.filter((c) => {
+                          const inAuthor = c.author
+                              .toLowerCase()
+                              .includes(query);
+                          const inFormat = c.format
+                              .toLowerCase()
+                              .includes(query);
+                          const inTags =
+                              c.tags &&
+                              c.tags.some((t) =>
+                                  t.toLowerCase().includes(query),
+                              );
+                          return inAuthor || inFormat || inTags;
+                      })
+                    : allConfigs;
+
+                container.innerHTML = "";
+
+                if (results.length === 0) {
+                    container.innerHTML =
+                        '<p class="status-text">no configs found.</p>';
+                    return;
+                }
+
+                results.forEach((config) => {
+                    const card = document.createElement("a");
+                    card.className = "post-card";
+                    card.href = `reader.html?config=${config.id}`;
+
+                    card.innerHTML = `
+                        <div class="card-top-row">
+                            <span class="card-number">#${config.id}</span>
+                            <span class="card-dot">·</span>
+                            <span class="card-date">${config.date}</span>
+                            <span class="format-badge format-${config.format}">${config.format}</span>
+                        </div>
+                        <div class="card-title">${config.author}</div>
+                        ${config.description ? `<div class="card-desc">${config.description}</div>` : ""}
+                        <div class="card-bottom-row">
+                            <div class="card-tags">${renderTags(config.tags)}</div>
+                        </div>
+                    `;
+
+                    container.appendChild(card);
+                });
+            }
+
+            async function loadConfigs() {
+                const container = document.getElementById("configs-container");
+
+                try {
+                    const response = await fetch("configs/index.json");
+                    allConfigs = await response.json();
+
+                    if (allConfigs.length === 0) {
+                        container.innerHTML =
+                            '<p class="status-text">nothing here yet.</p>';
+                        return;
+                    }
+
+                    allConfigs.sort((a, b) => Number(b.id) - Number(a.id));
+                    renderCards("");
+
+                    document
+                        .getElementById("search-input")
+                        .addEventListener("input", (e) => {
+                            renderCards(e.target.value);
+                        });
+                } catch (error) {
+                    container.innerHTML =
+                        '<p class="status-text">could not load configs.</p>';
+                    console.error(error);
+                }
+            }
+
+            loadConfigs();
+        </script>
+    </body>
+</html>

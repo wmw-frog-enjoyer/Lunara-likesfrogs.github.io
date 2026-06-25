@@ -1,0 +1,33 @@
+{
+  "ControllerEnabled": false,
+  "NoteEffects": false,
+  "EnableMidMapSkips": true,
+  "ApproachDistance": 48,
+  "Sensitivity": 3,
+  "HitFlash": false,
+  "Camera": 1,
+  "GridGuides": false,
+  "ApproachRate": 111,
+  "CursorIcon": 115283423768494,
+  "PlayArea": {
+    "Pos": [0.9229999780654907, 0.8690000176429749],
+    "Size": [0.07600003480911255, 0.12999999523162843]
+  },
+  "CursorTrail": false,
+  "NoteScale": 100,
+  "AbsoluteMode": false,
+  "Parallax": 12,
+  "EnvEffects": false,
+  "EffectScale": 100,
+  "CursorScale": 150,
+  "CursorDrift": true,
+  "Bloom": false,
+  "DimPlayArea": true,
+  "UseLeftThumbstick": false,
+  "PanelDim": false,
+  "SpawnEffect": false,
+  "HitFov": false,
+  "FadeInLength": 24,
+  "NotePushback": false,
+  "FadeNotes": true
+}

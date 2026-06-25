@@ -1,0 +1,221 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Ansilian</title>
+        <link
+            rel="icon"
+            type="image/png"
+            href="https://wmw-frog-enjoyer.github.io/assets/ansilian.png"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Naskh+Arabic:wght@400..700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="../style.css" />
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <!-- ===================== COPY-PASTE HEADER ===================== -->
+        <header class="topbar">
+            <a class="home-button" href="https://wmw-frog-enjoyer.github.io/">
+                <img
+                    class="home-logo"
+                    src="https://wmw-frog-enjoyer.github.io/assets/ansilian.png"
+                    alt="home-Logo"
+                />
+                <span>Ansilian</span>
+            </a>
+            <div class="center-nav">
+                <a
+                    class="archivers"
+                    href="https://wmw-frog-enjoyer.github.io/archivers"
+                    >archivers</a
+                >
+                <a
+                    class="archivers"
+                    href="https://wmw-frog-enjoyer.github.io/articles"
+                    >articles</a
+                >
+            </div>
+        </header>
+        <!-- ==================== END COPY-PASTE HEADER ================== -->
+
+        <div class="page-content">
+            <a class="back-link" href="index.html">← back to settings</a>
+
+            <!-- preface: id + format on the left, author + date on the right -->
+            <div class="post-preface">
+                <div class="preface-left">
+                    <span class="preface-number" id="preface-number"></span>
+                    <span class="format-badge" id="preface-format"></span>
+                </div>
+                <div class="preface-right">
+                    <span class="preface-author" id="preface-author"></span>
+                    <span class="preface-date" id="preface-date"></span>
+                </div>
+            </div>
+            <hr class="preface-divider" />
+
+            <!-- tags -->
+            <div id="preface-tags" class="preface-tags"></div>
+
+            <!-- stats grid: the extracted settings values -->
+            <div id="stats-grid" class="stats-grid"></div>
+
+            <!-- youtube video embed -->
+            <div
+                id="video-container"
+                class="video-container"
+                style="display: none"
+            >
+                <iframe
+                    id="video-embed"
+                    class="video-embed"
+                    frameborder="0"
+                    allow="
+                        accelerometer;
+                        autoplay;
+                        clipboard-write;
+                        encrypted-media;
+                        gyroscope;
+                        picture-in-picture;
+                    "
+                    allowfullscreen
+                ></iframe>
+            </div>
+
+            <p class="status-text" id="status"></p>
+        </div>
+
+        <script>
+            // Which fields to pull from each format and what to label them
+            const SS_FIELDS = [
+                { key: "ApproachRate", label: "Approach Rate" },
+                { key: "ApproachDistance", label: "Approach Distance" },
+                { key: "FadeInLength", label: "Fade In Length" },
+                { key: "Parallax", label: "Camera Parallax" },
+            ];
+
+            const SSP_FIELDS = [
+                { key: "approach_rate", label: "Approach Rate" },
+                { key: "spawn_distance", label: "Spawn Distance" },
+                { key: "fade_length", label: "Fade In Length" },
+                { key: "parallax", label: "Parallax" },
+                { key: "grid_parallax", label: "Grid Parallax" },
+                { key: "ui_parallax", label: "UI Parallax" },
+            ];
+
+            // Converts any YouTube URL to an embed URL
+            function getYouTubeEmbedUrl(url) {
+                if (!url) return null;
+                // handles youtu.be/ID and youtube.com/watch?v=ID
+                const match = url.match(/(?:youtu\.be\/|[?&]v=)([\w-]{11})/);
+                return match
+                    ? `https://www.youtube.com/embed/${match[1]}`
+                    : null;
+            }
+
+            function renderStats(data, fields) {
+                const grid = document.getElementById("stats-grid");
+                grid.innerHTML = "";
+
+                fields.forEach(({ key, label }) => {
+                    const value = data[key];
+                    // skip fields that don't exist in this config
+                    if (value === undefined || value === null) return;
+
+                    const box = document.createElement("div");
+                    box.className = "stat-box";
+                    box.innerHTML = `
+                        <div class="stat-label">${label}</div>
+                        <div class="stat-value">${value}</div>
+                    `;
+                    grid.appendChild(box);
+                });
+            }
+
+            async function loadConfig() {
+                const status = document.getElementById("status");
+
+                const params = new URLSearchParams(window.location.search);
+                const configId = params.get("config");
+
+                if (!configId) {
+                    status.textContent = "no config specified.";
+                    return;
+                }
+
+                try {
+                    // fetch the index to get metadata (author, date, format, video, tags)
+                    const indexResponse = await fetch("configs/index.json");
+                    const allConfigs = await indexResponse.json();
+                    const meta = allConfigs.find((c) => c.id === configId);
+
+                    if (!meta) {
+                        status.textContent = "config not found.";
+                        return;
+                    }
+
+                    // fill in the preface
+                    document.getElementById("preface-number").textContent =
+                        `#${meta.id}`;
+                    document.getElementById("preface-author").textContent =
+                        meta.author;
+                    document.getElementById("preface-date").textContent =
+                        meta.date;
+                    document.title = `${meta.author}'s settings — Ansilian`;
+
+                    const formatBadge =
+                        document.getElementById("preface-format");
+                    formatBadge.textContent = meta.format;
+                    formatBadge.className = `format-badge format-${meta.format}`;
+
+                    // fill in tags
+                    if (meta.tags && meta.tags.length > 0) {
+                        document.getElementById("preface-tags").innerHTML =
+                            meta.tags
+                                .map(
+                                    (t) =>
+                                        `<span class="preface-tag">${t}</span>`,
+                                )
+                                .join("");
+                    }
+
+                    // fetch the actual settings JSON file
+                    const configResponse = await fetch(
+                        `configs/${configId}.json`,
+                    );
+                    if (!configResponse.ok) {
+                        status.textContent = "settings file not found.";
+                        return;
+                    }
+                    const configData = await configResponse.json();
+
+                    // render the relevant stats based on format
+                    const fields =
+                        meta.format === "ssp" ? SSP_FIELDS : SS_FIELDS;
+                    renderStats(configData, fields);
+
+                    // embed the youtube video if there is one
+                    if (meta.video) {
+                        const embedUrl = getYouTubeEmbedUrl(meta.video);
+                        if (embedUrl) {
+                            document.getElementById("video-embed").src =
+                                embedUrl;
+                            document.getElementById(
+                                "video-container",
+                            ).style.display = "block";
+                        }
+                    }
+                } catch (error) {
+                    status.textContent = "could not load config.";
+                    console.error(error);
+                }
+            }
+
+            loadConfig();
+        </script>
+    </body>
+</html>
