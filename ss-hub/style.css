@@ -30,6 +30,13 @@
     opacity: 1;
 }
 
+.links-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center; /* This will pull the links back to the center of the page */
+}
+
 body {
     padding-bottom: 100px;
 }
