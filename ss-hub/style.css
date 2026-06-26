@@ -8,6 +8,14 @@
     margin-bottom: 65px;
 }
 
+/* New container class for the links */
+.links-container {
+    display: flex;
+    flex-direction: column; /* Stacks the links vertically */
+    gap: 15px; /* Adds space between the links */
+    align-items: flex-start; /* Aligns them to the left. Change to 'center' if you want them centered on the page */
+}
+
 .ss-hub {
     font-family: "Inter", sans-serif;
     font-weight: 300;
