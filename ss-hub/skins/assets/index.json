@@ -4,8 +4,18 @@
     "title": "Lunas simple skin :3",
     "author": "Lunara",
     "type": "ss-skin",
-    "date": "2026-06-25",
+    "date": "2026-06-26",
     "video": "https://youtu.be/XSNlw3LsKAo?si=1X12e8G8MyquDQns",
     "tags": ["minimal changes", "basic"]
+  },
+  {
+    "id": "002",
+    "title": "Mao Mao plushie",
+    "author": "Lunara",
+    "type": "ss-cursor",
+    "date": "2026-06-26",
+    "file": "002.png",
+    "code": "115283423768494",
+    "tags": ["non conventional"]
   }
 ]

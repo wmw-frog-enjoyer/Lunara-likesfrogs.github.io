@@ -108,7 +108,9 @@
                             </div>`;
                     }
                 } else if (skin.type === "ss-cursor") {
-                    preview = `<div class="cursor-code">${skin.code}</div>`;
+                    preview = `
+                        <img class="asset-preview" src="assets/${skin.file}" loading="lazy" alt="${skin.title}" />
+                        <div class="cursor-code">${skin.code}</div>`;
                 } else if (skin.type === "ssp-cursor") {
                     preview = `<img class="asset-preview" src="assets/${skin.file}" loading="lazy" alt="${skin.title}" />`;
                 } else if (
