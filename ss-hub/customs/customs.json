@@ -1,22 +1,122 @@
 [
   {
     "id": "001",
-    "name": "Song Name Here",
-    "mapper": "Mapper Name",
-    "rating": "8.2",
-    "pattern": "streams",
-    "link": "paste-in-game-code-here",
-    "date": "2026-06-26",
+    "name": "Breath Deep",
+    "mapper": "reticentmemory",
+    "rating": "s+",
+    "pattern": ["stamina", "jump"],
+    "link": "https://raw.githubusercontent.com/goobertown67/soundspizzle-maps/refs/heads/main/APM%20Music%20-%20Breath%20Deep",
+    "date": "2026-06-27",
     "archiver": "Lunara"
   },
   {
     "id": "002",
-    "name": "Another Song",
-    "mapper": "Another Mapper",
-    "rating": "6.5",
-    "pattern": "jacks",
-    "link": "another-in-game-code",
-    "date": "2026-06-26",
+    "name": "Forgetting Was My Only Option",
+    "mapper": "Scxthes",
+    "rating": "NM",
+    "pattern": "stamina",
+    "link": "https://raw.githubusercontent.com/Scxthes/Forgetting-Was-My-Only-Option/main/Forgetting%20Was%20My%20Only%20Option",
+    "date": "2026-06-27",
+    "archiver": "Lunara"
+  },
+  {
+    "id": "003",
+    "name": "Trusted Villain VIP",
+    "mapper": "Scxthes",
+    "rating": "s-",
+    "pattern": ["stamina", "slide", "jump"],
+    "link": "https://raw.githubusercontent.com/Scxthes/Trusted-Villain-VIP/main/Trusted%20Villain%20VIP",
+    "date": "2026-06-27",
+    "archiver": "Lunara"
+  },
+  {
+    "id": "004",
+    "name": "Hated Hero",
+    "mapper": "Scxthes",
+    "rating": "s--",
+    "pattern": ["stamina", "jump", "slide"],
+    "link": "https://raw.githubusercontent.com/Scxthes/Hated-Hero/main/Hated%20Hero.txt",
+    "date": "2026-06-27",
+    "archiver": "Lunara"
+  },
+  {
+    "id": "005",
+    "name": "Dance with Silence",
+    "mapper": "Pyxenity",
+    "rating": "s+",
+    "pattern": ["tech", "stream", "quantum"],
+    "link": "https://raw.githubusercontent.com/SheaNya/converts/refs/heads/main/Dance%20with%20silence%20pix",
+    "date": "2026-06-27",
+    "archiver": "Lunara"
+  },
+  {
+    "id": "006",
+    "name": "03",
+    "mapper": "eticentmemory & ciem",
+    "rating": "s-",
+    "pattern": ["jump", "slide"],
+    "link": "https://raw.githubusercontent.com/goobertown67/soundspizzle-maps/refs/heads/main/03%20-%20Haola",
+    "date": "2026-06-27",
+    "archiver": "Lunara"
+  },
+  {
+    "id": "007",
+    "name": "2024 BPM IS NOT ENOUGH",
+    "mapper": "Matt430",
+    "rating": "s--",
+    "pattern": ["stacks", "slide"],
+    "link": "https://raw.githubusercontent.com/Faworee/faworee_Converts_soundspacecustoms/refs/heads/main/matt430_underscore_-_2024_bpm_is_not_enough",
+    "date": "2026-06-27",
+    "archiver": "Lunara"
+  },
+  {
+    "id": "008",
+    "name": "//along/the/mystic/lands//",
+    "mapper": "Demisnya",
+    "rating": "s-",
+    "pattern": ["unconventional", "slide"],
+    "link": "https://raw.githubusercontent.com/Demikuu/post-audio-update-maps/main/along%20the%20mystic%20lands",
+    "date": "2026-06-27",
+    "archiver": "Lunara"
+  },
+  {
+    "id": "009",
+    "name": "A Miserable Pile Of Secrets (The Impaler II)",
+    "mapper": "xazthenpc",
+    "rating": "NM",
+    "pattern": ["unconventional", "jump", "quantum", "stamina", "slide"],
+    "link": "https://gist.githubusercontent.com/xazthenpc/1fa342203fff2116dde57ac1e206ee63/raw/351be2cfd977af1572eb50c803e141c28133b7d8/Nstryder%20-%20A%20Miserable%20Pile%20of%20Secrets%20(The%20Impaler%20II)",
+    "date": "2026-06-27",
+    "archiver": "Lunara"
+  },
+  {
+    "id": "010",
+    "name": "Aizome",
+    "mapper": "Demisnya",
+    "rating": "NM",
+    "pattern": ["jump", "slide", "stream"],
+    "link": "https://raw.githubusercontent.com/Demikuu/post-audio-update-maps/main/aizome",
+    "date": "2026-06-27",
+    "archiver": "Lunara"
+  },
+  {
+    "id": "011",
+    "name": "Run It Back",
+    "mapper": "SnivyTrueForm",
+    "rating": "NM",
+    "pattern": ["jump", "slide", "quantum"],
+    "link": "https://raw.githubusercontent.com/Trivynium/run-it-back/main/run%20it%20back%20final",
+    "date": "2026-06-27",
+    "archiver": "Lunara"
+  },
+  {
+    "id": "012",
+    "name": "Feel The Same",
+    "mapper": "Demisnya",
+    "rating": "s+",
+    "pattern": ["jump", "slide"],
+    "link": "https://raw.githubusercontent.com/Demikuu/post-audio-update-maps/main/feel%20the%20same",
+    "date": "2026-06-27",
     "archiver": "Lunara"
   }
 ]
