@@ -75,10 +75,19 @@ body {
     color: rgba(255, 255, 255, 0.75);
 }
 
-.pattern-pill.active {
+/* state 1 — include: green */
+.pattern-pill.include {
     background: rgba(37, 105, 63, 0.35);
     border-color: rgba(45, 133, 79, 0.6);
     color: rgba(150, 255, 180, 0.95);
+}
+
+/* state 2 — exclude: red */
+.pattern-pill.exclude {
+    background: rgba(120, 30, 30, 0.35);
+    border-color: rgba(180, 50, 50, 0.6);
+    color: rgba(255, 150, 150, 0.95);
+    text-decoration: line-through;
 }
 
 /* =====================================================

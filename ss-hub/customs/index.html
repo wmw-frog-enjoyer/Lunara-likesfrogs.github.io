@@ -40,7 +40,7 @@
 
         <script>
             let allCustoms = [];
-            let selectedPatterns = new Set();
+            let patternStates = new Map(); // pattern → 0 (neutral), 1 (include), 2 (exclude)
 
             async function copyLink(link, btn) {
                 try {
@@ -73,13 +73,14 @@
             }
 
             function togglePattern(pattern, btn) {
-                if (selectedPatterns.has(pattern)) {
-                    selectedPatterns.delete(pattern);
-                    btn.classList.remove("active");
-                } else {
-                    selectedPatterns.add(pattern);
-                    btn.classList.add("active");
-                }
+                const current = patternStates.get(pattern) || 0;
+                const next = (current + 1) % 3;
+                patternStates.set(pattern, next);
+
+                btn.classList.remove("include", "exclude");
+                if (next === 1) btn.classList.add("include");
+                if (next === 2) btn.classList.add("exclude");
+
                 renderCards(document.getElementById("search-input").value);
             }
 
@@ -107,16 +108,23 @@
                 const container = document.getElementById("customs-container");
                 const query = filter.toLowerCase().trim();
 
+                const included = [...patternStates.entries()]
+                    .filter(([, v]) => v === 1)
+                    .map(([k]) => k);
+                const excluded = [...patternStates.entries()]
+                    .filter(([, v]) => v === 2)
+                    .map(([k]) => k);
+
                 const results = allCustoms.filter((c) => {
                     const matchesSearch =
                         !query ||
                         c.name.toLowerCase().includes(query) ||
                         c.mapper.toLowerCase().includes(query) ||
                         c.archiver.toLowerCase().includes(query);
-                    const matchesPattern =
-                        selectedPatterns.size === 0 ||
-                        selectedPatterns.has(c.pattern);
-                    return matchesSearch && matchesPattern;
+                    const notExcluded = !excluded.includes(c.pattern);
+                    const matchesInclude =
+                        included.length === 0 || included.includes(c.pattern);
+                    return matchesSearch && notExcluded && matchesInclude;
                 });
 
                 if (results.length === 0) {
