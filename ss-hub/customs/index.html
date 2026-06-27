@@ -19,7 +19,6 @@
         <div class="page-content">
             <h1 class="page-title">customs</h1>
 
-            <!-- pattern toggle pills — populated once data loads -->
             <div class="pattern-filter" id="pattern-filter">
                 <span class="pattern-filter-label">patterns</span>
                 <div class="pattern-pills" id="pattern-pills"></div>
@@ -55,9 +54,11 @@
             }
 
             function buildPatternPills(customs) {
-                // collect unique patterns from all customs
+                // Collect unique, individual patterns from all customs arrays/strings
                 const patterns = [
-                    ...new Set(customs.map((c) => c.pattern).filter(Boolean)),
+                    ...new Set(
+                        customs.flatMap((c) => c.pattern).filter(Boolean),
+                    ),
                 ].sort();
                 const pillsContainer = document.getElementById("pattern-pills");
 
@@ -85,13 +86,25 @@
             }
 
             function buildCard(custom) {
+                // Safely convert custom.pattern into an array regardless of data structure
+                const patternsArray = Array.isArray(custom.pattern)
+                    ? custom.pattern
+                    : custom.pattern
+                      ? [custom.pattern]
+                      : [];
+
+                // Generate HTML for all pattern badges on this card
+                const badgesHtml = patternsArray
+                    .map((p) => `<span class="pattern-badge">${p}</span>`)
+                    .join("");
+
                 return `
                     <div class="custom-card">
                         <div class="card-top-row">
                             <span class="card-number">#${custom.id}</span>
                             <span class="card-dot">·</span>
                             <span class="card-date">${custom.date}</span>
-                            ${custom.pattern ? `<span class="pattern-badge">${custom.pattern}</span>` : ""}
+                            ${badgesHtml}
                         </div>
                         <div class="card-name">${custom.name}</div>
                         <div class="card-mapper">mapped by ${custom.mapper}</div>
@@ -121,9 +134,24 @@
                         c.name.toLowerCase().includes(query) ||
                         c.mapper.toLowerCase().includes(query) ||
                         c.archiver.toLowerCase().includes(query);
-                    const notExcluded = !excluded.includes(c.pattern);
+
+                    // Safely normalize patterns for matching filters
+                    const currentPatterns = Array.isArray(c.pattern)
+                        ? c.pattern
+                        : c.pattern
+                          ? [c.pattern]
+                          : [];
+
+                    // Hide card if it contains ANY excluded patterns
+                    const notExcluded = !currentPatterns.some((p) =>
+                        excluded.includes(p),
+                    );
+
+                    // Show card if no inclusions are active, OR if it has at least one matching included pattern
                     const matchesInclude =
-                        included.length === 0 || included.includes(c.pattern);
+                        included.length === 0 ||
+                        currentPatterns.some((p) => included.includes(p));
+
                     return matchesSearch && notExcluded && matchesInclude;
                 });
 
