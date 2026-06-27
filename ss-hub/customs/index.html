@@ -45,8 +45,14 @@
                 try {
                     await navigator.clipboard.writeText(link);
                     const original = btn.textContent;
+
                     btn.textContent = "copied!";
-                    setTimeout(() => (btn.textContent = original), 2000);
+                    btn.classList.add("copied"); // Adds the new grey styling
+
+                    setTimeout(() => {
+                        btn.textContent = original;
+                        btn.classList.remove("copied"); // Reverts back to green
+                    }, 2000);
                 } catch {
                     btn.textContent = "copy failed";
                     setTimeout(() => (btn.textContent = "copy link"), 2000);
