@@ -118,5 +118,15 @@
     "link": "https://raw.githubusercontent.com/Demikuu/post-audio-update-maps/main/feel%20the%20same",
     "date": "2026-06-27",
     "archiver": "Lunara"
+  },
+  {
+    "id": "013",
+    "name": "Dead Inside",
+    "mapper": "SheaNya",
+    "rating": "s-",
+    "pattern": ["streamslop", "stream", "quantum"],
+    "link": "https://raw.githubusercontent.com/SheaNya/FinalizedSSMaps/main/WUANT%20X%20BLUNDER%20-%20Dead%20Inside",
+    "date": "2026-06-27",
+    "archiver": "Lunara"
   }
 ]
